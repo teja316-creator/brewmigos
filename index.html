@@ -8,8 +8,7 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <title>Brewmigos 🍪</title>
-
+  <title>Brewmigos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Albert+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -37,7 +36,8 @@
         Pre-order <span class="event-date"></span>
       </button>
       <button class="nav__cart" id="cart-badge" aria-label="View cart">
-        🛒 <span id="cart-count">0</span>
+        <i data-lucide="shopping-cart" class="icon"></i>
+        <span id="cart-count">0</span>
       </button>
     </div>
   </nav>
@@ -63,7 +63,8 @@
       <p class="hero__subtitle">Thick. Gooey. Unreasonably good.</p>
       <div class="hero__cta">
         <button class="btn btn--gold" data-preorder-open>
-          Pre-order for <span class="event-date">12 Jul</span> →
+          Pre-order for <span class="event-date">12 Jul</span>
+          <i data-lucide="arrow-right" class="icon"></i>
         </button>
         <a href="#menu" class="btn btn--ghost">See the menu</a>
       </div>
@@ -95,7 +96,9 @@
       </div>
 
       <div class="menu__category reveal">
-        <h3 class="menu__cat-title">🍪 Cookies</h3>
+        <h3 class="menu__cat-title">
+          <i data-lucide="cookie" class="icon"></i> Cookies
+        </h3>
         <div class="menu__grid">
           <div class="menu-card" data-tilt>
             <div class="menu-card__photo">
@@ -104,7 +107,7 @@
             <div class="menu-card__body">
               <h4 class="menu-card__name">Triple Chocolate</h4>
               <p class="menu-card__desc">Dark, milk &amp; white chips in every bite</p>
-              <span class="menu-card__price">₹120</span>
+              <span class="menu-card__price">&#8377;120</span>
             </div>
           </div>
           <div class="menu-card" data-tilt>
@@ -114,7 +117,7 @@
             <div class="menu-card__body">
               <h4 class="menu-card__name">Biscoff Butter</h4>
               <p class="menu-card__desc">Caramel cookie crust, drizzled on top</p>
-              <span class="menu-card__price">₹130</span>
+              <span class="menu-card__price">&#8377;130</span>
             </div>
           </div>
           <div class="menu-card" data-tilt>
@@ -124,7 +127,7 @@
             <div class="menu-card__body">
               <h4 class="menu-card__name">NYC Choc-Chip</h4>
               <p class="menu-card__desc">Crispy edges, gooey centre, bags of chips</p>
-              <span class="menu-card__price">₹110</span>
+              <span class="menu-card__price">&#8377;110</span>
             </div>
           </div>
           <div class="menu-card" data-tilt>
@@ -134,7 +137,7 @@
             <div class="menu-card__body">
               <h4 class="menu-card__name">White Choc Macadamia</h4>
               <p class="menu-card__desc">Buttery dough, white chips, crunchy macadamia</p>
-              <span class="menu-card__price">₹140</span>
+              <span class="menu-card__price">&#8377;140</span>
             </div>
           </div>
           <div class="menu-card" data-tilt>
@@ -144,7 +147,7 @@
             <div class="menu-card__body">
               <h4 class="menu-card__name">Double Biscoff</h4>
               <p class="menu-card__desc">Biscoff dough with Biscoff spread centre</p>
-              <span class="menu-card__price">₹140</span>
+              <span class="menu-card__price">&#8377;140</span>
             </div>
           </div>
           <div class="menu-card" data-tilt>
@@ -154,45 +157,47 @@
             <div class="menu-card__body">
               <h4 class="menu-card__name">Loaded Monster</h4>
               <p class="menu-card__desc">KitKat, M&amp;Ms, white chips — the works</p>
-              <span class="menu-card__price">₹150</span>
+              <span class="menu-card__price">&#8377;150</span>
             </div>
           </div>
         </div>
       </div>
 
       <div class="menu__category reveal">
-        <h3 class="menu__cat-title">☕ Drinks</h3>
+        <h3 class="menu__cat-title">
+          <i data-lucide="coffee" class="icon"></i> Drinks
+        </h3>
         <div class="menu__grid menu__grid--drinks">
           <div class="menu-card menu-card--drink" data-tilt>
-            <div class="menu-card__icon">☕</div>
+            <i data-lucide="coffee" class="icon menu-card__icon"></i>
             <h4 class="menu-card__name">Espresso</h4>
             <p class="menu-card__desc">Single origin, bold &amp; rich</p>
-            <span class="menu-card__price">₹80</span>
+            <span class="menu-card__price">&#8377;80</span>
           </div>
           <div class="menu-card menu-card--drink" data-tilt>
-            <div class="menu-card__icon">🥛</div>
+            <i data-lucide="milk" class="icon menu-card__icon"></i>
             <h4 class="menu-card__name">Oat Milk Latte</h4>
             <p class="menu-card__desc">Creamy, smooth, plant-based</p>
-            <span class="menu-card__price">₹130</span>
+            <span class="menu-card__price">&#8377;130</span>
           </div>
           <div class="menu-card menu-card--drink" data-tilt>
-            <div class="menu-card__icon">🧊</div>
+            <i data-lucide="snowflake" class="icon menu-card__icon"></i>
             <h4 class="menu-card__name">Cold Brew</h4>
             <p class="menu-card__desc">24-hr steep, bold &amp; refreshing</p>
-            <span class="menu-card__price">₹120</span>
+            <span class="menu-card__price">&#8377;120</span>
           </div>
           <div class="menu-card menu-card--drink" data-tilt>
-            <div class="menu-card__icon">🍵</div>
+            <i data-lucide="leaf" class="icon menu-card__icon"></i>
             <h4 class="menu-card__name">Matcha Latte</h4>
             <p class="menu-card__desc">Ceremonial grade, earthy &amp; sweet</p>
-            <span class="menu-card__price">₹140</span>
+            <span class="menu-card__price">&#8377;140</span>
           </div>
         </div>
       </div>
 
       <p class="menu__note reveal">
         Prices are per cookie. Minimum order of 6 for pre-orders.
-        <button class="link-btn" data-preorder-open>Pre-order for 12 Jul →</button>
+        <button class="link-btn" data-preorder-open>Pre-order for 12 Jul</button>
       </p>
     </div>
   </section>
@@ -225,10 +230,19 @@
             <h3 class="event-card__title">Brewmigos Cookie Pop-Up</h3>
             <p class="event-card__desc">Pick up your pre-ordered cookies fresh from our 12 Jul pop-up. Loaded monsters, Biscoff, triple-choc — all made to order.</p>
             <div class="event-card__meta">
-              <span>📍 Location announced on Instagram</span>
-              <span>⏰ Order deadline: <strong>10 July</strong></span>
+              <span>
+                <i data-lucide="map-pin" class="icon icon--sm"></i>
+                Location announced on Instagram
+              </span>
+              <span>
+                <i data-lucide="clock" class="icon icon--sm"></i>
+                Order deadline: <strong>10 July</strong>
+              </span>
             </div>
-            <button class="btn btn--gold" data-preorder-open style="margin-top:16px">Pre-order now →</button>
+            <button class="btn btn--gold" data-preorder-open style="margin-top:16px">
+              Pre-order now
+              <i data-lucide="arrow-right" class="icon"></i>
+            </button>
           </div>
         </article>
 
@@ -242,7 +256,10 @@
             <h3 class="event-card__title">Cookie Baking Workshop</h3>
             <p class="event-card__desc">Learn the secrets behind our loaded cookies — from the dough to the drizzle.</p>
             <div class="event-card__meta">
-              <span>📸 Details on @brewmigos4u</span>
+              <span>
+                <i data-lucide="instagram" class="icon icon--sm"></i>
+                Details on @brewmigos4u
+              </span>
             </div>
           </div>
         </article>
@@ -323,7 +340,7 @@
       <div class="gallery__footer reveal">
         <button class="btn btn--outline" id="gallery-toggle">See All Photos</button>
         <a href="https://www.instagram.com/brewmigos4u" target="_blank" rel="noopener noreferrer" class="gallery__ig-link">
-          📸 @brewmigos4u
+          <i data-lucide="instagram" class="icon"></i> @brewmigos4u
         </a>
       </div>
     </div>
@@ -346,21 +363,21 @@
       <div class="contact__grid">
         <div class="contact__info reveal">
           <div class="contact__item">
-            <span class="contact__icon">📍</span>
+            <i data-lucide="map-pin" class="icon contact__icon"></i>
             <div>
               <h4>Location</h4>
               <p>Pop-up locations announced on Instagram.<br />Follow us to stay updated.</p>
             </div>
           </div>
           <div class="contact__item">
-            <span class="contact__icon">📸</span>
+            <i data-lucide="instagram" class="icon contact__icon"></i>
             <div>
               <h4>Instagram</h4>
               <a href="https://www.instagram.com/brewmigos4u" target="_blank" rel="noopener noreferrer" class="contact__link">@brewmigos4u</a>
             </div>
           </div>
           <div class="contact__item">
-            <span class="contact__icon">✉️</span>
+            <i data-lucide="mail" class="icon contact__icon"></i>
             <div>
               <h4>Email</h4>
               <a href="mailto:hello@brewmigos.in" class="contact__link">hello@brewmigos.in</a>
@@ -393,7 +410,7 @@
   <footer class="footer">
     <div class="footer__inner">
       <div class="footer__brand">
-        <span class="footer__logo">🍪 Brewmigos</span>
+        <span class="footer__logo">Brewmigos</span>
         <p class="footer__tagline">Crafted with love</p>
       </div>
       <nav class="footer__links" aria-label="Footer navigation">
@@ -403,7 +420,7 @@
         <a href="#contact">Contact</a>
         <a href="https://www.instagram.com/brewmigos4u" target="_blank" rel="noopener noreferrer">Instagram</a>
       </nav>
-      <p class="footer__copy">&copy; 2026 Brewmigos. Made with 🍪 &amp; love.</p>
+      <p class="footer__copy">&copy; 2026 Brewmigos. All rights reserved.</p>
     </div>
   </footer>
 
@@ -415,28 +432,27 @@
           <h2 class="po-modal__title">Pre-order for <span class="event-date"></span></h2>
           <p class="po-modal__subtitle event-location"></p>
         </div>
-        <button class="po-modal__close" id="preorder-modal-close" aria-label="Close">✕</button>
+        <button class="po-modal__close" id="preorder-modal-close" aria-label="Close">
+          <i data-lucide="x" class="icon"></i>
+        </button>
       </div>
 
       <div class="po-modal__body">
-        <!-- Products -->
         <div class="po-section">
           <h3 class="po-section__title">Pick your cookies</h3>
           <p class="po-section__hint">Minimum 6 cookies per order.</p>
           <div class="po-products" id="preorder-products"></div>
         </div>
 
-        <!-- Cart summary -->
         <div class="po-section po-cart">
           <h3 class="po-section__title">Your order</h3>
           <div id="cart-items" class="cart-items"></div>
           <div class="cart-total-row">
             <span>Total</span>
-            <strong id="cart-total">₹0</strong>
+            <strong id="cart-total">&#8377;0</strong>
           </div>
         </div>
 
-        <!-- Checkout form -->
         <div class="po-section">
           <h3 class="po-section__title">Your details</h3>
           <form class="form po-form" id="checkout-form" novalidate>
@@ -472,12 +488,19 @@
 
   <!-- ── Lightbox ────────────────────────────────────────────────────────── -->
   <div class="lightbox" id="lightbox">
-    <button class="lightbox__close" aria-label="Close">✕</button>
-    <button class="lightbox__nav lightbox__prev" aria-label="Previous">‹</button>
+    <button class="lightbox__close" aria-label="Close">
+      <i data-lucide="x" class="icon"></i>
+    </button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Previous">
+      <i data-lucide="chevron-left" class="icon"></i>
+    </button>
     <img src="" alt="" />
-    <button class="lightbox__nav lightbox__next" aria-label="Next">›</button>
+    <button class="lightbox__nav lightbox__next" aria-label="Next">
+      <i data-lucide="chevron-right" class="icon"></i>
+    </button>
   </div>
 
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script type="module" src="ui.js"></script>
   <script type="module" src="preorder.js"></script>
   <script>

@@ -1,11 +1,11 @@
 {
   "name": "Brewmigos",
   "short_name": "Brewmigos",
-  "description": "Coffee, baked goods, and community events.",
+  "description": "Gourmet loaded cookies, crafted with love.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1C0A00",
-  "theme_color": "#1C0A00",
+  "background_color": "#2A1410",
+  "theme_color": "#2A1410",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -27,6 +27,5 @@
       "purpose": "any"
     }
   ],
-  "categories": ["food", "lifestyle"],
-  "screenshots": []
+  "categories": ["food", "lifestyle"]
 }

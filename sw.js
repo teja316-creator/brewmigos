@@ -1,13 +1,15 @@
-const CACHE = 'brewmigos-v1';
+const CACHE = 'brewmigos-v2';
 const PRECACHE = [
   '/',
   '/index.html',
   '/style.css',
-  '/scene.js',
   '/ui.js',
+  '/preorder.js',
+  '/config.js',
   '/manifest.json',
   '/icons/icon.svg',
-  'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap',
+  '/assets/hero-poster.jpg',
+  'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Albert+Sans:wght@300;400;500;600&display=swap',
 ];
 
 self.addEventListener('install', e => {
@@ -26,10 +28,10 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
-
   const url = new URL(e.request.url);
 
-  if (url.origin === 'https://cdn.jsdelivr.net') {
+  // Cache-first for CDN assets (fonts, lucide)
+  if (url.origin === 'https://unpkg.com' || url.origin === 'https://fonts.gstatic.com' || url.origin === 'https://fonts.googleapis.com') {
     e.respondWith(
       caches.open(CACHE).then(async cache => {
         const cached = await cache.match(e.request);
@@ -42,15 +44,15 @@ self.addEventListener('fetch', e => {
     return;
   }
 
+  // Network-first for same-origin (always fresh if online)
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(res => {
+    fetch(e.request)
+      .then(res => {
         if (res.ok && url.origin === self.location.origin) {
           caches.open(CACHE).then(c => c.put(e.request, res.clone()));
         }
         return res;
-      });
-    })
+      })
+      .catch(() => caches.match(e.request))
   );
 });
