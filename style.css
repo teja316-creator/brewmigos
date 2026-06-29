@@ -240,6 +240,14 @@ ul { list-style: none; }
 }
 .hero__scroll-dot { animation: scrollBob 2s ease-in-out infinite; }
 
+/* ── Hero 3D canvas ─────────────────────── */
+#hero-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none; /* let hero buttons receive clicks */
+}
+
 /* ── Drizzle divider ────────────────────── */
 .drizzle-divider {
   height: 40px; overflow: hidden;
@@ -402,6 +410,18 @@ ul { list-style: none; }
 
 /* ── Gallery section ────────────────────── */
 .gallery-section { background: var(--c-surface); }
+
+/* ── Gallery 3D canvas ──────────────────── */
+#gallery-canvas {
+  display: block;
+  width: 100%;
+  height: 520px;
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  cursor: grab;
+  touch-action: none;
+}
+#gallery-canvas:active { cursor: grabbing; }
 
 .gallery__featured {
   display: grid;

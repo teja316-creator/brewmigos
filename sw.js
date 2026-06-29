@@ -1,4 +1,4 @@
-const CACHE = 'brewmigos-v2';
+const CACHE = 'brewmigos-v3';
 const PRECACHE = [
   '/',
   '/index.html',
@@ -6,6 +6,8 @@ const PRECACHE = [
   '/ui.js',
   '/preorder.js',
   '/config.js',
+  '/cookie-scene.js',
+  '/gallery-3d.js',
   '/manifest.json',
   '/icons/icon.svg',
   '/assets/hero-poster.jpg',
