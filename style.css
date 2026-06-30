@@ -404,8 +404,11 @@ ul { list-style: none; }
 .gallery-section { background: var(--c-surface); }
 
 /* ── Gallery 3D canvas ──────────────────── */
+/* Static grid is the default; JS swaps to the canvas only once the
+   carousel has actually initialized (skipped under reduced-motion,
+   WebGL failure, or a blocked/failed Three.js CDN load). */
 #gallery-canvas {
-  display: block;
+  display: none;
   width: 100%;
   height: 520px;
   border-radius: var(--radius);
@@ -414,6 +417,9 @@ ul { list-style: none; }
   touch-action: none;
 }
 #gallery-canvas:active { cursor: grabbing; }
+
+.gallery-section.gallery-3d-active #gallery-canvas { display: block; }
+.gallery-section.gallery-3d-active #gallery-fallback { display: none; }
 
 .gallery__featured {
   display: grid;

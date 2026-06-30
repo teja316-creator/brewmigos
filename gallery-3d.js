@@ -1,10 +1,5 @@
 import * as THREE from 'three';
 
-const canvas = document.getElementById('gallery-canvas');
-if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  initCarousel(canvas);
-}
-
 // Photos arranged evenly around the carousel ring
 const PHOTOS = [
   'assets/PHOTO-2026-06-29-11-44-33.jpg',
@@ -23,6 +18,19 @@ const PHOTOS = [
 
 // Exposed so ui.js's lightbox handler can match the same photo set/order
 window.__brewmigosGalleryPhotos = PHOTOS;
+
+const canvas = document.getElementById('gallery-canvas');
+
+// Static fallback grid (#gallery-fallback) is shown by default in CSS.
+// Only swap to the 3D canvas once it actually initializes — covers
+// prefers-reduced-motion, WebGL being unavailable, and any runtime error.
+if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  try {
+    initCarousel(canvas);
+  } catch (err) {
+    console.error('Gallery carousel failed to initialize, showing static fallback.', err);
+  }
+}
 
 function initCarousel(canvas) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -188,4 +196,7 @@ function initCarousel(canvas) {
     if (document.hidden) cancelAnimationFrame(raf);
     else animate();
   });
+
+  // Carousel is live — swap from the static fallback grid to the canvas
+  document.querySelector('.gallery-section')?.classList.add('gallery-3d-active');
 }
