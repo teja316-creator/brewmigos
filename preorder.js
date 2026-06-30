@@ -188,7 +188,7 @@ async function handleSubmit(e) {
   checkoutForm.reset();
   submitBtn.disabled = false;
   submitBtn.textContent = 'Place Pre-order';
-  showStatus('success', `Order confirmed for ${event.displayDate}! We'll DM you on Instagram to confirm details. ☕🍪`);
+  showStatus('success', `Order confirmed for ${event.displayDate}. We'll DM you on Instagram to confirm details.`);
 }
 
 async function submitToGoogleForm({ name, phone, email, notes, itemsSummary, totalQty, totalPrice }) {

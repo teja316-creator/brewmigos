@@ -2,10 +2,29 @@ import * as THREE from 'three';
 
 const canvas = document.getElementById('gallery-canvas');
 if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  initGallery(canvas);
+  initCarousel(canvas);
 }
 
-function initGallery(canvas) {
+// Photos arranged evenly around the carousel ring
+const PHOTOS = [
+  'assets/PHOTO-2026-06-29-11-44-33.jpg',
+  'assets/PHOTO-2026-06-29-11-44-33%202.jpg',
+  'assets/PHOTO-2026-06-29-11-44-33%203.jpg',
+  'assets/PHOTO-2026-06-29-11-44-33%204.jpg',
+  'assets/PHOTO-2026-06-29-11-44-33%205.jpg',
+  'assets/PHOTO-2026-06-29-11-44-33%206.jpg',
+  'assets/PHOTO-2026-06-29-11-44-35.jpg',
+  'assets/PHOTO-2026-06-29-11-44-35%202.jpg',
+  'assets/PHOTO-2026-06-29-11-44-35%203.jpg',
+  'assets/PHOTO-2026-06-29-11-44-35%204.jpg',
+  'assets/PHOTO-2026-06-29-11-44-35%205.jpg',
+  'assets/PHOTO-2026-06-29-11-44-35%206.jpg',
+];
+
+// Exposed so ui.js's lightbox handler can match the same photo set/order
+window.__brewmigosGalleryPhotos = PHOTOS;
+
+function initCarousel(canvas) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setClearColor(0x160C08, 1);
@@ -13,8 +32,10 @@ function initGallery(canvas) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x160C08);
 
-  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 50);
-  camera.position.set(0, 0, 0);
+  const RADIUS = 5;
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 50);
+  camera.position.set(0, 0, RADIUS + 3.4);
+  camera.lookAt(0, 0, 0);
 
   function resize() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -25,90 +46,56 @@ function initGallery(canvas) {
   resize();
   new ResizeObserver(resize).observe(canvas);
 
-  scene.add(new THREE.AmbientLight(0xFFEECC, 0.9));
-  const spot = new THREE.DirectionalLight(0xFFFFFF, 0.6);
-  spot.position.set(0, 5, -4);
-  scene.add(spot);
+  scene.add(new THREE.AmbientLight(0xFFEECC, 0.95));
+  const key = new THREE.DirectionalLight(0xFFFFFF, 0.5);
+  key.position.set(0, 4, 8);
+  scene.add(key);
 
-  // 9 photos to display in the 3D gallery
-  const PHOTOS = [
-    'assets/PHOTO-2026-06-29-11-44-33.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%202.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%203.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%204.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%205.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%206.jpg',
-    'assets/PHOTO-2026-06-29-11-44-35.jpg',
-    'assets/PHOTO-2026-06-29-11-44-35%202.jpg',
-    'assets/PHOTO-2026-06-29-11-44-35%203.jpg',
-  ];
+  // ── Carousel ring ──────────────────────────────────────────────────────
+  const ringGroup = new THREE.Group();
+  scene.add(ringGroup);
 
+  const N = PHOTOS.length;
+  const PLANE_W = 1.7, PLANE_H = 1.9;
   const loader = new THREE.TextureLoader();
-  const galleryGroup = new THREE.Group();
-  scene.add(galleryGroup);
-
-  const RADIUS = 4.5;
-  const COL_ANGLES = [-0.42, 0, 0.42];   // horizontal spread (radians)
-  const ROW_ANGLES = [-0.28, 0, 0.28];   // vertical spread
   const planes = [];
 
-  // Gold border frame texture
-  function makeFrameTex(photoTex, hasBorder) {
-    const mat = new THREE.MeshStandardMaterial({
-      map: photoTex,
-      roughness: 0.6,
-      metalness: 0.05,
-      envMapIntensity: 0.3,
-    });
-    return mat;
-  }
+  PHOTOS.forEach((src, i) => {
+    const theta = (i / N) * Math.PI * 2;
+    const x = Math.sin(theta) * RADIUS;
+    const z = Math.cos(theta) * RADIUS;
 
-  PHOTOS.forEach((src, idx) => {
-    const col = idx % 3;
-    const row = Math.floor(idx / 3);
-    const theta = COL_ANGLES[col]; // left-right angle
-    const phi = ROW_ANGLES[row];   // up-down angle
+    const geo = new THREE.PlaneGeometry(PLANE_W, PLANE_H);
+    const mat = new THREE.MeshStandardMaterial({ color: 0x4E2718, roughness: 0.6 });
+    const plane = new THREE.Mesh(geo, mat);
 
-    // Position on inner sphere surface (photos face camera/center)
-    const x = RADIUS * Math.sin(theta) * Math.cos(phi);
-    const y = RADIUS * Math.sin(phi);
-    const z = -RADIUS * Math.cos(theta) * Math.cos(phi);
-
-    // Plane with slight aspect ratio taller
-    const planeGeo = new THREE.PlaneGeometry(1.35, 1.5);
-    const mat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.6 });
-    const plane = new THREE.Mesh(planeGeo, mat);
-
-    plane.position.set(x, y, z);
-    plane.lookAt(0, 0, 0);
+    plane.position.set(x, 0, z);
+    plane.rotation.y = theta; // face outward, away from the ring axis
     plane.userData.src = src;
-    plane.userData.idx = idx;
+    plane.userData.idx = i;
+    plane.userData.theta = theta;
 
-    galleryGroup.add(plane);
+    ringGroup.add(plane);
     planes.push(plane);
 
-    // Load texture and replace material
     loader.load(src, tex => {
       tex.colorSpace = THREE.SRGBColorSpace;
-      plane.material = makeFrameTex(tex);
+      plane.material = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.55, metalness: 0.04 });
       plane.material.needsUpdate = true;
     });
 
-    // Gold border mesh (slightly larger, behind plane)
-    const borderGeo = new THREE.PlaneGeometry(1.42, 1.57);
-    const borderMat = new THREE.MeshStandardMaterial({
-      color: 0xC98A3C,
-      roughness: 0.3,
-      metalness: 0.6,
-    });
-    const border = new THREE.Mesh(borderGeo, borderMat);
-    border.position.set(x, y, z - 0.008);
-    border.lookAt(0, 0, 0);
-    border.translateZ(-0.01);
-    galleryGroup.add(border);
+    // Thin gold frame behind each photo
+    const frameGeo = new THREE.PlaneGeometry(PLANE_W + 0.09, PLANE_H + 0.09);
+    const frameMat = new THREE.MeshStandardMaterial({ color: 0xC98A3C, roughness: 0.35, metalness: 0.5 });
+    const frame = new THREE.Mesh(frameGeo, frameMat);
+    frame.position.set(x, 0, z);
+    frame.rotation.y = theta;
+    frame.translateZ(-0.012);
+    ringGroup.add(frame);
   });
 
-  // === DRAG / INERTIA ===
+  // ── Drag / inertia ───────────────────────────────────────────────────────
+  const AUTO_SPEED = 0.0022;
   let isDragging = false;
   let lastX = 0;
   let velY = 0;
@@ -127,8 +114,8 @@ function initGallery(canvas) {
     if (!isDragging) return;
     const dx = x - lastX;
     dragDeltaX += Math.abs(dx);
-    groupRotY += dx * 0.005;
-    velY = dx * 0.005;
+    groupRotY += dx * 0.006;
+    velY = dx * 0.006;
     lastX = x;
   }
   function pointerUp() {
@@ -144,7 +131,7 @@ function initGallery(canvas) {
   canvas.addEventListener('touchmove',  e => pointerMove(e.touches[0].clientX), { passive: true });
   canvas.addEventListener('touchend',   pointerUp);
 
-  // === HOVER DETECTION ===
+  // ── Hover detection ──────────────────────────────────────────────────────
   const raycaster = new THREE.Raycaster();
   const ptr = new THREE.Vector2();
 
@@ -159,7 +146,7 @@ function initGallery(canvas) {
     canvas.style.cursor = hoveredPlane ? 'pointer' : (isDragging ? 'grabbing' : 'grab');
   }
 
-  // === CLICK → LIGHTBOX ===
+  // ── Click → lightbox ─────────────────────────────────────────────────────
   canvas.addEventListener('click', e => {
     if (dragDeltaX > 8 || !hoveredPlane) return;
     document.dispatchEvent(new CustomEvent('gallery-3d-click', {
@@ -167,25 +154,30 @@ function initGallery(canvas) {
     }));
   });
 
-  // === ANIMATION LOOP ===
+  // ── Animation loop ───────────────────────────────────────────────────────
   let raf;
-  const clock = new THREE.Clock();
 
   function animate() {
     raf = requestAnimationFrame(animate);
-    clock.getDelta();
 
-    // Inertia
     if (!isDragging) {
-      groupRotY += velY;
+      groupRotY += AUTO_SPEED + velY;
       velY *= 0.92;
     }
-    galleryGroup.rotation.y = groupRotY;
+    ringGroup.rotation.y = groupRotY;
 
-    // Hover scale
+    // Highlight whichever plane currently faces the camera
+    let frontPlane = null, bestDot = -Infinity;
+    const camDir = new THREE.Vector3();
     planes.forEach(p => {
-      const target = p === hoveredPlane ? 1.08 : 1.0;
-      p.scale.lerp(new THREE.Vector3(target, target, target), 0.12);
+      p.getWorldDirection(camDir);
+      const dot = camDir.z; // world-space outward normal vs. camera axis (+Z)
+      if (dot > bestDot) { bestDot = dot; frontPlane = p; }
+    });
+
+    planes.forEach(p => {
+      const target = (p === hoveredPlane || p === frontPlane) ? 1.12 : 1.0;
+      p.scale.lerp(new THREE.Vector3(target, target, target), 0.1);
     });
 
     renderer.render(scene, camera);

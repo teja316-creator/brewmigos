@@ -24,8 +24,8 @@ Fully static PWA — no framework, no bundler, no dependencies to install.
 | `ui.js` | Module. Nav scroll, scroll-reveal (`IntersectionObserver`), card tilt, gallery toggle, lightbox, active-nav tracking, contact form. Calls `window.lucide.createIcons()` on load. |
 | `preorder.js` | Module. Reads `config.js` to find the active event, renders product cards with qty steppers, manages a `localStorage` cart, submits to Google Form via hidden iframe. |
 | `config.js` | **Owner-editable.** Defines `EVENTS` array and `GOOGLE_FORM` credentials. This is the only file that needs editing to launch a new event or wire up Google Form. |
-| `sw.js` | Service worker. Cache key is `brewmigos-v2` — bump the version string when assets change to force cache invalidation. |
-| `scene.js` | Unused/legacy Three.js file from initial scaffold. Safe to delete. |
+| `gallery-3d.js` | Module. Three.js cylindrical photo carousel on `#gallery-canvas` — drag to spin, click a photo to open the lightbox. Skips init under `prefers-reduced-motion`. |
+| `sw.js` | Service worker. Cache key is `brewmigos-v4` — bump the version string when assets change to force cache invalidation. |
 
 ## Icons
 

@@ -134,17 +134,7 @@ document.addEventListener('click', e => {
 
 // 3D gallery click → open lightbox with full masonry set
 document.addEventListener('gallery-3d-click', e => {
-  const allImgs = [
-    'assets/PHOTO-2026-06-29-11-44-33.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%202.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%203.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%204.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%205.jpg',
-    'assets/PHOTO-2026-06-29-11-44-33%206.jpg',
-    'assets/PHOTO-2026-06-29-11-44-35.jpg',
-    'assets/PHOTO-2026-06-29-11-44-35%202.jpg',
-    'assets/PHOTO-2026-06-29-11-44-35%203.jpg',
-  ];
+  const allImgs = window.__brewmigosGalleryPhotos ?? [e.detail.src];
   openLightbox(allImgs, e.detail.idx ?? 0);
 });
 

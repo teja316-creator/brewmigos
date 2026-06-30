@@ -1,4 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#1C0A00"/>
-  <text x="256" y="340" font-size="280" text-anchor="middle" font-family="serif">☕</text>
+  <rect width="512" height="512" rx="96" fill="#160C08"/>
+  <circle cx="256" cy="256" r="158" fill="#C98A3C"/>
+  <circle cx="256" cy="256" r="158" fill="none" stroke="#8A5A28" stroke-width="6" opacity="0.4"/>
+  <circle cx="196" cy="190" r="17" fill="#2A1410"/>
+  <circle cx="300" cy="170" r="13" fill="#2A1410"/>
+  <circle cx="330" cy="250" r="15" fill="#2A1410"/>
+  <circle cx="270" cy="300" r="18" fill="#2A1410"/>
+  <circle cx="190" cy="290" r="12" fill="#2A1410"/>
+  <circle cx="230" cy="230" r="10" fill="#F3E3C3"/>
+  <circle cx="300" cy="320" r="11" fill="#F3E3C3"/>
+  <circle cx="180" cy="230" r="9" fill="#F3E3C3"/>
 </svg>
