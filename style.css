@@ -362,7 +362,7 @@ ul { list-style: none; }
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 20px;
 }
-.menu__grid--drinks { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.menu__grid--drinks { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
 
 /* Cookie cards (photo) — sharp rectangular crop, no rounded mask */
 .menu-card {
@@ -394,13 +394,6 @@ ul { list-style: none; }
 }
 .menu-card__desc { font-size: 0.8rem; color: var(--c-text-dim); line-height: 1.5; flex: 1; }
 .menu-card__price { font-size: 1rem; font-weight: 700; color: var(--c-gold); }
-
-/* Drink cards (icon-only) */
-.menu-card--drink {
-  flex-direction: column; padding: 24px 20px;
-  align-items: flex-start; gap: 8px;
-}
-.menu-card__icon { width: 28px; height: 28px; color: var(--c-gold); }
 
 .menu__note {
   text-align: center; font-size: 0.85rem; color: var(--c-text-dim);
