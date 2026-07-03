@@ -52,38 +52,63 @@
     </div>
   </nav>
 
-  <!-- ── Hero ───────────────────────────────────────────────────────────── -->
-  <section class="hero" id="hero">
-    <div class="hero__video-wrap">
-      <video
-        id="hero-video"
-        class="hero__video"
-        autoplay muted loop playsinline
-        poster="assets/hero-poster.jpg"
-        aria-hidden="true"
-      >
-        <source src="assets/VIDEO-2026-06-29-11-44-36%202.mp4" type="video/mp4" />
-      </video>
-      <div class="hero__scrim"></div>
-    </div>
+  <!-- ── Story ──────────────────────────────────────────────────────────── -->
+  <section class="story" id="hero">
+    <div class="story__sticky">
 
-    <div class="hero__content">
-      <p class="hero__eyebrow">Crafted with love</p>
-      <h1 class="hero__title">Gourmet<br /><em>Loaded</em><br />Cookies</h1>
-      <p class="hero__subtitle">Thick. Gooey. Unreasonably good.</p>
-      <div class="hero__cta">
-        <button class="btn btn--gold" data-preorder-open>
-          Pre-order for <span class="event-date">12 Jul</span>
-          <i data-lucide="arrow-right" class="icon"></i>
-        </button>
-        <a href="#menu" class="btn btn--ghost">See the menu</a>
+      <div class="story__stage" data-stage="0">
+        <div class="story__bg" style="background-image:url('assets/PHOTO-2026-06-29-11-44-35%208.jpg')"></div>
+        <div class="story__scrim"></div>
+        <div class="story__copy">
+          <p class="story__eyebrow">Chapter One</p>
+          <h2 class="story__title">Baked<br /><em>Fresh</em></h2>
+          <p class="story__desc">Every tray comes out of the oven the same morning it's ordered.</p>
+        </div>
       </div>
+
+      <div class="story__stage" data-stage="1">
+        <div class="story__bg" style="background-image:url('assets/PHOTO-2026-06-29-11-44-35%2016.jpg')"></div>
+        <div class="story__scrim"></div>
+        <div class="story__copy">
+          <p class="story__eyebrow">Chapter Two</p>
+          <h2 class="story__title">Loaded<br /><em>Different</em></h2>
+          <p class="story__desc">Thick dough, stuffed edge to edge with chips, chunks and Biscoff.</p>
+        </div>
+      </div>
+
+      <div class="story__stage" data-stage="2">
+        <div class="story__bg" style="background-image:url('assets/PHOTO-2026-06-29-11-44-35%2025.jpg')"></div>
+        <div class="story__scrim"></div>
+        <div class="story__copy">
+          <p class="story__eyebrow">Chapter Three</p>
+          <h2 class="story__title">Gooey<br />by <em>Design</em></h2>
+          <p class="story__desc">Pulled warm, never overbaked. That's the whole point.</p>
+        </div>
+      </div>
+
+      <div class="story__stage story__stage--cta" data-stage="3">
+        <div class="story__bg" style="background-image:url('assets/hero-poster.jpg')"></div>
+        <div class="story__scrim story__scrim--cta"></div>
+        <div class="story__copy">
+          <p class="story__eyebrow">Crafted with love</p>
+          <h2 class="story__title">Yours on<br /><em>12 Jul</em></h2>
+          <p class="story__desc">Thick. Gooey. Unreasonably good. Pre-order for our next pop-up.</p>
+          <div class="story__cta">
+            <button class="btn btn--gold" data-preorder-open>
+              Pre-order for <span class="event-date">12 Jul</span>
+              <i data-lucide="arrow-right" class="icon"></i>
+            </button>
+            <a href="#menu" class="btn btn--ghost">See the menu</a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <a href="#menu" class="hero__scroll" aria-label="Scroll down">
+    <a href="#menu" class="story__scroll" aria-label="Scroll down">
       <svg width="20" height="36" viewBox="0 0 20 36" fill="none" aria-hidden="true">
         <rect x="1" y="1" width="18" height="26" rx="9" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="10" cy="9" r="2.5" fill="currentColor" class="hero__scroll-dot"/>
+        <circle cx="10" cy="9" r="2.5" fill="currentColor" class="story__scroll-dot"/>
       </svg>
     </a>
   </section>
@@ -514,9 +539,11 @@
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script type="module" src="ui.js"></script>
   <script type="module" src="preorder.js"></script>
   <script type="module" src="gallery-3d.js"></script>
+  <script type="module" src="story.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

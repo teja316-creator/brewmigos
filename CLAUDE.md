@@ -19,13 +19,16 @@ Fully static PWA — no framework, no bundler, no dependencies to install.
 
 | File | Role |
 |------|------|
-| `index.html` | Single page. All sections (hero, menu, events, gallery, contact, pre-order modal, lightbox) live here. |
+| `index.html` | Single page. All sections (story hero, menu, events, gallery, contact, pre-order modal, lightbox) live here. |
 | `style.css` | All styles. CSS custom properties at `:root` define the palette and type stack. |
-| `ui.js` | Module. Nav scroll, scroll-reveal (`IntersectionObserver`), card tilt, gallery toggle, lightbox, active-nav tracking, contact form. Calls `window.lucide.createIcons()` on load. |
+| `ui.js` | Module. Nav scroll, scroll-reveal (`IntersectionObserver`), card tilt, gallery toggle, lightbox, active-nav tracking, contact form, JS-driven smooth anchor-scroll. Calls `window.lucide.createIcons()` on load. |
+| `story.js` | Module. GSAP ScrollTrigger scroll-pinned narrative hero (`.story` section, `#hero`) — 4 stages crossfade as the user scrolls, ending on a pre-order CTA. Only pins at `>=700px` + no reduced-motion (`gsap.matchMedia`); otherwise `.story` ships as a plain stacked-and-visible flow by default (progressive enhancement, mirrors `gallery-3d.js`'s isolation pattern). |
 | `preorder.js` | Module. Reads `config.js` to find the active event, renders product cards with qty steppers, manages a `localStorage` cart, submits to Google Form via hidden iframe. |
 | `config.js` | **Owner-editable.** Defines `EVENTS` array and `GOOGLE_FORM` credentials. This is the only file that needs editing to launch a new event or wire up Google Form. |
-| `gallery-3d.js` | Module. Three.js cylindrical photo carousel on `#gallery-canvas` — drag to spin, click a photo to open the lightbox. Skips init under `prefers-reduced-motion`. |
+| `gallery-3d.js` | Module. Three.js cylindrical photo carousel on `#gallery-canvas` — drag to spin, click a photo to open the lightbox. Skips init under `prefers-reduced-motion`; static `#gallery-fallback` grid shown until it succeeds. |
 | `sw.js` | Service worker. Cache key is `brewmigos-v4` — bump the version string when assets change to force cache invalidation. |
+
+GSAP core + ScrollTrigger plugin load from jsdelivr CDN via `<script>` tags in `index.html`, before the ES modules — same version (`3.12.5`) pinned for both to avoid skew.
 
 ## Icons
 

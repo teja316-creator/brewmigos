@@ -45,7 +45,10 @@
 
 /* ── Reset ──────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+/* scroll-behavior: smooth intentionally omitted — it fights GSAP
+   ScrollTrigger's scrubbed pin in the story section (see ui.js for the
+   JS-driven smooth anchor scroll that replaces it). */
+html { scroll-padding-top: var(--nav-h); }
 body {
   background: var(--c-bg);
   color: var(--c-text);
@@ -176,69 +179,94 @@ ul { list-style: none; }
 .nav__hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
 .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ── Hero ───────────────────────────────── */
-.hero {
-  position: relative; height: 100svh; min-height: 580px;
+/* ── Story (scroll narrative) ───────────── */
+/* Default state is a safe, always-visible stacked flow — works with no
+   JS, JS-disabled, GSAP CDN failure, or reduced-motion. story.js opts
+   INTO the pinned/crossfade treatment only once ScrollTrigger is
+   confirmed available and motion + viewport conditions allow it (adds
+   .story--pinned). This is progressive enhancement, not a fallback
+   bolted on after the fact. */
+.story {
+  position: relative;
+  background: var(--c-bg);
+}
+.story__sticky {
+  display: flex;
+  flex-direction: column;
+}
+.story__stage {
+  position: relative;
+  min-height: 100svh;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
+  border-top: 1px solid rgba(201, 138, 60, 0.08);
 }
-.hero__video-wrap {
+.story__stage:first-child { border-top: none; }
+
+.story__bg {
   position: absolute; inset: 0;
+  background-size: cover; background-position: center;
 }
-.hero__video {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-}
-.hero__scrim {
+.story__scrim {
   position: absolute; inset: 0;
   background:
-    linear-gradient(to bottom, rgba(22,12,8,0.5) 0%, rgba(22,12,8,0.1) 40%, rgba(22,12,8,0.7) 100%),
+    linear-gradient(to bottom, rgba(22,12,8,0.55) 0%, rgba(22,12,8,0.15) 40%, rgba(22,12,8,0.75) 100%),
+    linear-gradient(to right, rgba(22,12,8,0.55) 0%, transparent 60%);
+}
+.story__scrim--cta {
+  background:
+    linear-gradient(to bottom, rgba(22,12,8,0.65) 0%, rgba(22,12,8,0.35) 45%, rgba(22,12,8,0.85) 100%),
     linear-gradient(to right, rgba(22,12,8,0.6) 0%, transparent 60%);
 }
 
-.hero__content {
+.story__copy {
   position: relative; z-index: 2;
   padding: 0 clamp(20px, 6vw, 80px);
   max-width: 700px;
   display: flex; flex-direction: column; gap: 16px;
 }
-.hero__eyebrow {
+.story__eyebrow {
   font-size: 0.75rem; font-weight: 600; letter-spacing: 0.22em;
   text-transform: uppercase; color: var(--c-gold);
-  opacity: 0; transform: translateY(16px);
-  animation: fadeUp 0.7s 0.2s var(--ease-out) forwards;
 }
-.hero__title {
+.story__title {
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 10vw, 7.5rem);
-  font-weight: 900; line-height: 0.92;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 900; line-height: 0.94;
   color: var(--c-cream); letter-spacing: -0.02em;
-  opacity: 0; transform: translateY(24px);
-  animation: fadeUp 0.8s 0.35s var(--ease-out) forwards;
 }
-.hero__title em {
-  font-style: italic; color: var(--c-gold);
-  font-weight: 400;
-}
-.hero__subtitle {
+.story__title em { font-style: italic; color: var(--c-gold); font-weight: 400; }
+.story__desc {
   font-size: clamp(0.9rem, 2vw, 1.1rem);
-  color: rgba(243, 227, 195, 0.7); letter-spacing: 0.04em;
-  opacity: 0; transform: translateY(16px);
-  animation: fadeUp 0.7s 0.5s var(--ease-out) forwards;
+  color: rgba(243, 227, 195, 0.75); letter-spacing: 0.02em;
+  max-width: 480px;
 }
-.hero__cta {
+.story__cta {
   display: flex; gap: 12px; flex-wrap: wrap;
   margin-top: 8px;
-  opacity: 0; transform: translateY(16px);
-  animation: fadeUp 0.7s 0.65s var(--ease-out) forwards;
 }
-.hero__scroll {
-  position: absolute; bottom: 32px; left: 50%;
+
+.story__scroll {
+  position: absolute; bottom: 28px; left: 50%;
   transform: translateX(-50%);
-  z-index: 2; color: rgba(243, 227, 195, 0.5);
-  opacity: 0; animation: fadeIn 1s 1.3s ease forwards;
+  z-index: 3; color: rgba(243, 227, 195, 0.5);
 }
-.hero__scroll-dot { animation: scrollBob 2s ease-in-out infinite; }
+.story__scroll-dot { animation: scrollBob 2s ease-in-out infinite; }
+
+/* ── Pinned/enhanced mode (JS opt-in via story.js) ──────── */
+.story--pinned .story__sticky {
+  position: relative;
+  height: 100svh;
+}
+.story--pinned .story__stage {
+  position: absolute; inset: 0;
+  min-height: 0;
+  border-top: none;
+}
+.story--pinned .story__scroll {
+  opacity: 0;
+  animation: fadeIn 1s 1s ease forwards;
+}
 
 /* ── Drizzle divider ────────────────────── */
 .drizzle-divider {
@@ -680,7 +708,6 @@ ul { list-style: none; }
 /* ── Reduced motion ─────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.1ms !important; }
-  .hero__video { display: none; }
 }
 
 /* ── Responsive ─────────────────────────── */
@@ -714,8 +741,8 @@ ul { list-style: none; }
   .nav__hamburger { display: flex; }
   .nav__actions .btn--sm span { display: none; }
 
-  .hero__title { font-size: clamp(2.8rem, 14vw, 5rem); }
-  .hero__cta { flex-direction: column; align-items: flex-start; }
+  .story__title { font-size: clamp(2.8rem, 14vw, 5rem); }
+  .story__cta { flex-direction: column; align-items: flex-start; }
   .btn { width: auto; }
 
   .menu__grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
@@ -737,5 +764,5 @@ ul { list-style: none; }
 }
 
 @media (max-width: 400px) {
-  .hero__cta .btn { width: 100%; justify-content: center; }
+  .story__cta .btn { width: 100%; justify-content: center; }
 }

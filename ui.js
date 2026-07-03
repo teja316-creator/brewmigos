@@ -53,10 +53,21 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-// ── Reduced motion: pause hero video ──────
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  document.getElementById('hero-video')?.pause();
-}
+// ── Smooth anchor scroll ───────────────────
+// JS-driven (not CSS `scroll-behavior: smooth`) because that property
+// fights GSAP ScrollTrigger's scrubbed pin in story.js — it intercepts
+// the native scroll deltas ScrollTrigger reads during a drag/wheel scroll.
+// A one-off scrollIntoView on click doesn't have that problem.
+document.addEventListener('click', e => {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
+  const id = link.getAttribute('href');
+  if (id.length < 2) return; // bare '#'
+  const target = document.querySelector(id);
+  if (!target) return;
+  e.preventDefault();
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 // ── Contact form ──────────────────────────
 const contactForm   = document.getElementById('contact-form');
