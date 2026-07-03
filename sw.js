@@ -1,4 +1,4 @@
-const CACHE = 'brewmigos-v4';
+const CACHE = 'brewmigos-v5';
 const PRECACHE = [
   '/',
   '/index.html',
@@ -45,9 +45,16 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // Network-first for same-origin (always fresh if online)
+  // Network-first for same-origin, forcing revalidation instead of
+  // trusting the browser's own HTTP cache — GitHub Pages serves these
+  // with Cache-Control: max-age=600, so a plain fetch() can silently
+  // resolve from disk cache for up to 10 minutes after a deploy and
+  // serve stale HTML paired with fresh (or vice versa) CSS/JS. 'no-cache'
+  // forces a conditional GET (ETag/Last-Modified) every time — cheap
+  // (304s if unchanged), but guarantees a genuinely new deploy is seen
+  // immediately rather than however long is left on the old max-age.
   e.respondWith(
-    fetch(e.request)
+    fetch(e.request, { cache: 'no-cache' })
       .then(res => {
         if (res.ok && url.origin === self.location.origin) {
           caches.open(CACHE).then(c => c.put(e.request, res.clone()));
