@@ -159,3 +159,40 @@ const secIO = new IntersectionObserver(entries => {
   });
 }, { rootMargin: `-${Math.round(window.innerHeight * 0.45)}px 0px -${Math.round(window.innerHeight * 0.45)}px 0px` });
 sections.forEach(s => secIO.observe(s));
+
+// ── Install indicator (Android phones only) ────────
+// `beforeinstallprompt` also fires on desktop Chrome/Edge — the UA
+// check below narrows this specifically to Android phone form factor
+// (Android tablets typically omit "Mobile" from their UA string).
+const isAndroidPhone = /Android/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const DISMISS_KEY = 'brewmigos-install-dismissed';
+
+const installIndicator = document.getElementById('install-indicator');
+const installBtn       = document.getElementById('install-btn');
+const installClose     = document.getElementById('install-close');
+let deferredInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  if (!isAndroidPhone || isStandalone || localStorage.getItem(DISMISS_KEY)) return;
+  installIndicator?.removeAttribute('hidden');
+});
+
+installBtn?.addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  installIndicator?.setAttribute('hidden', '');
+});
+
+installClose?.addEventListener('click', () => {
+  localStorage.setItem(DISMISS_KEY, '1');
+  installIndicator?.setAttribute('hidden', '');
+});
+
+window.addEventListener('appinstalled', () => {
+  installIndicator?.setAttribute('hidden', '');
+});
