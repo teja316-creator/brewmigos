@@ -57,6 +57,10 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  /* Cookie cursor (matches the navbar logo mark). Elements with their
+     own cursor (buttons, the draggable gallery, lightbox zoom) keep
+     that more specific value — this only sets the default. */
+  cursor: url('icons/cursor-cookie.svg') 16 16, auto;
 }
 img, video { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
