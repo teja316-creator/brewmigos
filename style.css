@@ -208,26 +208,20 @@ ul { list-style: none; }
 }
 .story__stage:first-child { border-top: none; }
 
-.story__bg {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
+/* Text left, image right, split row — no full-bleed photo/scrim */
+.story__row {
+  position: relative; z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 6vw, 80px) 0 clamp(56px, 9vw, 108px);
+  display: flex;
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  width: 100%;
 }
-.story__scrim {
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(22,12,8,0.55) 0%, rgba(22,12,8,0.15) 40%, rgba(22,12,8,0.75) 100%),
-    linear-gradient(to right, rgba(22,12,8,0.55) 0%, transparent 60%);
-}
-.story__scrim--cta {
-  background:
-    linear-gradient(to bottom, rgba(22,12,8,0.65) 0%, rgba(22,12,8,0.35) 45%, rgba(22,12,8,0.85) 100%),
-    linear-gradient(to right, rgba(22,12,8,0.6) 0%, transparent 60%);
-}
-
 .story__copy {
-  position: relative; z-index: 2;
-  padding: 0 clamp(20px, 6vw, 80px);
-  max-width: 700px;
+  flex: 1 1 42%;
+  min-width: 0;
   display: flex; flex-direction: column; gap: 16px;
 }
 .story__eyebrow {
@@ -236,20 +230,64 @@ ul { list-style: none; }
 }
 .story__title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 9vw, 6.5rem);
-  font-weight: 900; line-height: 0.94;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  font-weight: 900; line-height: 0.96;
   color: var(--c-cream); letter-spacing: -0.02em;
 }
 .story__title em { font-style: italic; color: var(--c-gold); font-weight: 400; }
 .story__desc {
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   color: rgba(243, 227, 195, 0.75); letter-spacing: 0.02em;
-  max-width: 480px;
+  max-width: 440px;
 }
 .story__cta {
   display: flex; gap: 12px; flex-wrap: wrap;
   margin-top: 8px;
 }
+
+/* Image — rounded rectangle, contained (not full-bleed) */
+.story__media {
+  flex: 1 1 50%;
+  max-width: 480px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+}
+.story__img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+}
+
+/* Vertical guide rail — one persistent instance, tracks the active
+   chapter as the pinned timeline scrubs. Desktop/pinned only; in the
+   default flow layout (mobile, reduced-motion, no-JS) there's no
+   single "active chapter" to track, so it's hidden. */
+.story__rail {
+  display: none;
+  position: absolute;
+  left: clamp(20px, 5vw, 64px);
+  top: 20%; bottom: 20%;
+  width: 2px;
+  z-index: 2;
+}
+.story--pinned .story__rail { display: block; }
+.story__rail-line {
+  position: absolute; inset: 0;
+  background: rgba(201, 138, 60, 0.2);
+}
+.story__rail-dot {
+  position: absolute; left: 50%; top: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(201, 138, 60, 0.3);
+  transform: translate(-50%, -50%) scale(1);
+}
+.story__rail-dot[data-rail-dot="0"] { top: 0%; }
+.story__rail-dot[data-rail-dot="1"] { top: 33.33%; }
+.story__rail-dot[data-rail-dot="2"] { top: 66.66%; }
+.story__rail-dot[data-rail-dot="3"] { top: 100%; }
 
 .story__scroll {
   position: absolute; bottom: 28px; left: 50%;
@@ -749,7 +787,14 @@ ul { list-style: none; }
   .nav__hamburger { display: flex; }
   .nav__actions .btn--sm span { display: none; }
 
-  .story__title { font-size: clamp(2.8rem, 14vw, 5rem); }
+  .story__row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 clamp(20px, 6vw, 80px);
+    gap: 28px;
+  }
+  .story__media { max-width: 100%; aspect-ratio: 4 / 3; }
+  .story__title { font-size: clamp(2.4rem, 11vw, 3.6rem); }
   .story__cta { flex-direction: column; align-items: flex-start; }
   .btn { width: auto; }
 

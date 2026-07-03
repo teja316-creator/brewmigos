@@ -56,49 +56,70 @@
   <section class="story" id="hero">
     <div class="story__sticky">
 
+      <!-- Vertical guide rail — tracks which chapter is active as you scroll -->
+      <div class="story__rail" aria-hidden="true">
+        <div class="story__rail-line"></div>
+        <div class="story__rail-dot" data-rail-dot="0"></div>
+        <div class="story__rail-dot" data-rail-dot="1"></div>
+        <div class="story__rail-dot" data-rail-dot="2"></div>
+        <div class="story__rail-dot" data-rail-dot="3"></div>
+      </div>
+
       <div class="story__stage" data-stage="0">
-        <div class="story__bg" style="background-image:url('assets/PHOTO-2026-06-29-11-44-35%208.jpg')"></div>
-        <div class="story__scrim"></div>
-        <div class="story__copy">
-          <p class="story__eyebrow">Chapter One</p>
-          <h2 class="story__title">Baked<br /><em>Fresh</em></h2>
-          <p class="story__desc">Every tray comes out of the oven the same morning it's ordered.</p>
+        <div class="story__row">
+          <div class="story__copy">
+            <p class="story__eyebrow">Chapter One</p>
+            <h2 class="story__title">Baked<br /><em>Fresh</em></h2>
+            <p class="story__desc">Every tray comes out of the oven the same morning it's ordered.</p>
+          </div>
+          <div class="story__media">
+            <img class="story__img" src="assets/PHOTO-2026-06-29-11-44-35%208.jpg" alt="Fresh-baked tray of Biscoff cookies" loading="eager" />
+          </div>
         </div>
       </div>
 
       <div class="story__stage" data-stage="1">
-        <div class="story__bg" style="background-image:url('assets/PHOTO-2026-06-29-11-44-35%2016.jpg')"></div>
-        <div class="story__scrim"></div>
-        <div class="story__copy">
-          <p class="story__eyebrow">Chapter Two</p>
-          <h2 class="story__title">Loaded<br /><em>Different</em></h2>
-          <p class="story__desc">Thick dough, stuffed edge to edge with chips, chunks and Biscoff.</p>
+        <div class="story__row">
+          <div class="story__copy">
+            <p class="story__eyebrow">Chapter Two</p>
+            <h2 class="story__title">Loaded<br /><em>Different</em></h2>
+            <p class="story__desc">Thick dough, stuffed edge to edge with chips, chunks and Biscoff.</p>
+          </div>
+          <div class="story__media">
+            <img class="story__img" src="assets/PHOTO-2026-06-29-11-44-35%2016.jpg" alt="Loaded cookie macro shot" loading="lazy" />
+          </div>
         </div>
       </div>
 
       <div class="story__stage" data-stage="2">
-        <div class="story__bg" style="background-image:url('assets/PHOTO-2026-06-29-11-44-35%2025.jpg')"></div>
-        <div class="story__scrim"></div>
-        <div class="story__copy">
-          <p class="story__eyebrow">Chapter Three</p>
-          <h2 class="story__title">Gooey<br />by <em>Design</em></h2>
-          <p class="story__desc">Pulled warm, never overbaked. That's the whole point.</p>
+        <div class="story__row">
+          <div class="story__copy">
+            <p class="story__eyebrow">Chapter Three</p>
+            <h2 class="story__title">Gooey<br />by <em>Design</em></h2>
+            <p class="story__desc">Pulled warm, never overbaked. That's the whole point.</p>
+          </div>
+          <div class="story__media">
+            <img class="story__img" src="assets/PHOTO-2026-06-29-11-44-35%2025.jpg" alt="Gooey cookie cross-section" loading="lazy" />
+          </div>
         </div>
       </div>
 
       <div class="story__stage story__stage--cta" data-stage="3">
-        <div class="story__bg" style="background-image:url('assets/hero-poster.jpg')"></div>
-        <div class="story__scrim story__scrim--cta"></div>
-        <div class="story__copy">
-          <p class="story__eyebrow">Crafted with love</p>
-          <h2 class="story__title">Yours on<br /><em>12 Jul</em></h2>
-          <p class="story__desc">Thick. Gooey. Unreasonably good. Pre-order for our next pop-up.</p>
-          <div class="story__cta">
-            <button class="btn btn--gold" data-preorder-open>
-              Pre-order for <span class="event-date">12 Jul</span>
-              <i data-lucide="arrow-right" class="icon"></i>
-            </button>
-            <a href="#menu" class="btn btn--ghost">See the menu</a>
+        <div class="story__row">
+          <div class="story__copy">
+            <p class="story__eyebrow">Crafted with love</p>
+            <h2 class="story__title">Yours on<br /><em>12 Jul</em></h2>
+            <p class="story__desc">Thick. Gooey. Unreasonably good. Pre-order for our next pop-up.</p>
+            <div class="story__cta">
+              <button class="btn btn--gold" data-preorder-open>
+                Pre-order for <span class="event-date">12 Jul</span>
+                <i data-lucide="arrow-right" class="icon"></i>
+              </button>
+              <a href="#menu" class="btn btn--ghost">See the menu</a>
+            </div>
+          </div>
+          <div class="story__media">
+            <img class="story__img" src="assets/hero-poster.jpg" alt="Brewmigos cookie, crafted with love" loading="lazy" />
           </div>
         </div>
       </div>

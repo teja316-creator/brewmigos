@@ -33,33 +33,46 @@ function initStory(story) {
   mm.add('(min-width: 700px) and (prefers-reduced-motion: no-preference)', () => {
     story.classList.add('story--pinned');
 
-    // Photo (bg+scrim) and copy fade on separate schedules: photos get a
+    const dots = gsap.utils.toArray('.story__rail-dot', story);
+
+    // Image and copy fade on separate schedules: the photo card gets a
     // wide, gentle crossfade (nice blend, no hard cut); copy text uses a
     // short, fully SEQUENTIAL fade — the outgoing headline finishes
-    // disappearing before the next one starts — because two large serif
-    // headlines overlapping mid-transition is unreadable, unlike photos
-    // which blend fine.
-    const FADE = 0.34;       // photo crossfade window (fraction of a slot)
+    // disappearing before the next one starts — because two headlines
+    // overlapping mid-transition is unreadable, unlike photos which
+    // blend fine. The rail dot lights up on the same schedule as its
+    // chapter's text, so the "guide" actually tracks reading progress.
+    const FADE = 0.34;       // image crossfade window (fraction of a slot)
     const TEXT_FADE = 0.14;  // each headline's own fade in/out duration
-    const TEXT_GAP = 0.04;   // beat of photo-only time between outgoing/incoming copy
+    const TEXT_GAP = 0.04;   // beat of image-only time between outgoing/incoming copy
+    // duration must match TEXT_FADE explicitly — without it GSAP falls
+    // back to its own default (0.5), badly out of sync with the text
+    // fade and inflating the timeline's total length past where the
+    // text/image tweens actually end.
+    const DOT_ON  = { scale: 1.6, backgroundColor: '#C98A3C', duration: TEXT_FADE };
+    const DOT_OFF = { scale: 1,   backgroundColor: 'rgba(201,138,60,0.3)', duration: TEXT_FADE };
     const tl = gsap.timeline({ defaults: { ease: 'none' } });
 
     stages.forEach((stage, i) => {
-      const visual = stage.querySelectorAll('.story__bg, .story__scrim');
+      const media = stage.querySelector('.story__media');
       const copy = stage.querySelector('.story__copy');
+      const dot = dots[i];
 
       if (i === 0) {
         // First stage is visible immediately — no scroll required to see
         // the hero content, this section IS the hero.
         gsap.set(stage, { opacity: 1 });
         gsap.set(copy, { opacity: 1, y: 0 });
+        gsap.set(dot, DOT_ON);
       } else {
-        tl.fromTo(visual, { opacity: 0 }, { opacity: 1, duration: FADE }, i - FADE);
+        tl.fromTo(media, { opacity: 0 }, { opacity: 1, duration: FADE }, i - FADE);
         tl.fromTo(copy, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: TEXT_FADE }, i + TEXT_GAP);
+        tl.to(dot, DOT_ON, i + TEXT_GAP);
       }
       if (i < stages.length - 1) {
         tl.to(copy, { opacity: 0, y: -20, duration: TEXT_FADE }, (i + 1) - FADE - TEXT_GAP - TEXT_FADE);
-        tl.to(visual, { opacity: 0, duration: FADE }, (i + 1) - FADE);
+        tl.to(media, { opacity: 0, duration: FADE }, (i + 1) - FADE);
+        tl.to(dot, DOT_OFF, (i + 1) - FADE - TEXT_GAP - TEXT_FADE);
       }
     });
 
@@ -81,6 +94,7 @@ function initStory(story) {
       trigger.kill();
       story.classList.remove('story--pinned');
       gsap.set(stages, { clearProps: 'all' });
+      gsap.set(dots, { clearProps: 'all' });
     };
   });
 
