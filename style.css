@@ -317,11 +317,10 @@ ul { list-style: none; }
 }
 .menu__grid--drinks { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 
-/* Cookie cards (photo) */
+/* Cookie cards (photo) — sharp rectangular crop, no rounded mask */
 .menu-card {
   background: var(--c-surface2);
   border: 1px solid rgba(201, 138, 60, 0.1);
-  border-radius: var(--radius);
   overflow: hidden;
   transition: border-color 0.3s, box-shadow 0.3s, transform 0.15s;
   will-change: transform;
@@ -439,7 +438,6 @@ ul { list-style: none; }
   display: none;
   width: 100%;
   height: 520px;
-  border-radius: var(--radius);
   margin-bottom: 12px;
   cursor: grab;
   touch-action: none;
@@ -455,7 +453,7 @@ ul { list-style: none; }
   grid-template-rows: repeat(2, 240px);
   gap: 12px; margin-bottom: 12px;
 }
-.gallery-item { border-radius: var(--radius); overflow: hidden; background: var(--c-surface2); }
+.gallery-item { overflow: hidden; background: var(--c-surface2); }
 .gallery-item--large { grid-column: span 2; grid-row: span 2; }
 .gallery-item--wide  { grid-column: span 2; }
 
@@ -469,7 +467,7 @@ ul { list-style: none; }
 .gallery__all[hidden] { display: none; }
 .gallery__masonry { columns: 4 200px; gap: 12px; }
 .gallery__masonry img {
-  width: 100%; border-radius: var(--radius-sm); margin-bottom: 12px;
+  width: 100%; margin-bottom: 12px;
   display: block; cursor: zoom-in;
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
 }
@@ -498,7 +496,7 @@ ul { list-style: none; }
 .lightbox.open { opacity: 1; pointer-events: all; }
 .lightbox img {
   max-width: min(90vw, 1200px); max-height: 88vh;
-  object-fit: contain; border-radius: var(--radius-sm);
+  object-fit: contain;
   box-shadow: 0 24px 80px rgba(0,0,0,0.8);
 }
 .lightbox__close {
@@ -635,12 +633,12 @@ ul { list-style: none; }
 .po-card {
   display: flex; gap: 14px; align-items: center;
   background: var(--c-surface2); border: 1px solid rgba(201, 138, 60, 0.1);
-  border-radius: var(--radius-sm); padding: 12px;
+  padding: 12px;
   transition: border-color 0.2s;
 }
 .po-card:hover { border-color: rgba(201, 138, 60, 0.25); }
 .po-card__img-wrap {
-  width: 64px; height: 64px; border-radius: 8px;
+  width: 64px; height: 64px;
   overflow: hidden; flex-shrink: 0;
 }
 .po-card__img-wrap img { width: 100%; height: 100%; object-fit: cover; }
