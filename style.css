@@ -300,6 +300,26 @@ ul { list-style: none; }
 }
 .story__scroll-dot { animation: scrollBob 2s ease-in-out infinite; }
 
+/* Horizontal carousel dots — mobile only, JS opt-in (.story--carousel) */
+.story__carousel-dots {
+  display: none;
+  position: absolute; bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  gap: 8px;
+}
+.story--carousel .story__carousel-dots { display: flex; }
+.story__carousel-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(201, 138, 60, 0.3);
+  transition: background 0.3s, transform 0.3s;
+}
+.story__carousel-dot.active {
+  background: var(--c-gold);
+  transform: scale(1.4);
+}
+
 /* ── Pinned/enhanced mode (JS opt-in via story.js) ──────── */
 .story--pinned .story__sticky {
   position: relative;
@@ -794,6 +814,33 @@ ul { list-style: none; }
   .story__title { font-size: clamp(2.4rem, 11vw, 3.6rem); }
   .story__cta { flex-direction: column; align-items: flex-start; }
   .btn { width: auto; }
+
+  /* Horizontal auto-sliding carousel — JS opt-in only (story.js adds
+     .story--carousel once it confirms motion is allowed; reduced-motion
+     visitors keep the plain vertical stacked flow above instead, since
+     an auto-advancing carousel is exactly the kind of motion that
+     preference exists to suppress). */
+  .story--carousel .story__sticky {
+    flex-direction: row;
+    height: 100svh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .story--carousel .story__sticky::-webkit-scrollbar { display: none; }
+  .story--carousel .story__stage {
+    flex: 0 0 100%;
+    min-height: 0;
+    height: 100%;
+    border-top: none;
+    scroll-snap-align: start;
+  }
+  .story--carousel .story__row {
+    max-height: 100%;
+    overflow-y: auto;
+  }
 
   .menu__grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 

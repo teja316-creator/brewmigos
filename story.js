@@ -98,6 +98,80 @@ function initStory(story) {
     };
   });
 
+  // Mobile: horizontal auto-sliding carousel instead of the vertical
+  // stacked flow. Gated on no-preference the same way the desktop pin
+  // is — an auto-advancing carousel is exactly the kind of motion
+  // prefers-reduced-motion exists to suppress, so those visitors keep
+  // the plain stacked flow (style.css's default, untouched by JS).
+  mm.add('(max-width: 699px) and (prefers-reduced-motion: no-preference)', () => {
+    story.classList.add('story--carousel');
+
+    const sticky = story.querySelector('.story__sticky');
+    const dotEls = gsap.utils.toArray('.story__carousel-dot', story);
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    let idx = 0;
+    let autoTimer = null;
+    let resumeTimer = null;
+    let scrollDebounce = null;
+
+    function setActiveDot(i) {
+      dotEls.forEach((d, di) => d.classList.toggle('active', di === i));
+    }
+    function goTo(i, smooth = true) {
+      idx = (i + stages.length) % stages.length;
+      sticky.scrollTo({ left: idx * sticky.clientWidth, behavior: smooth ? 'smooth' : 'auto' });
+      setActiveDot(idx);
+    }
+    function stopAuto() {
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = null;
+    }
+    function startAuto() {
+      stopAuto();
+      autoTimer = setInterval(() => goTo(idx + 1), 4500);
+    }
+    // Manual swipe/wheel/dot-click pauses auto-advance, resuming a few
+    // seconds after the visitor stops interacting — a fully automatic
+    // carousel that fights a mid-swipe visitor is worse than pausing.
+    function onUserInteract() {
+      stopAuto();
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(startAuto, 5000);
+    }
+
+    sticky.addEventListener('pointerdown', onUserInteract, { passive: true, signal });
+    sticky.addEventListener('wheel', onUserInteract, { passive: true, signal });
+
+    // Debounced so a swipe's momentum settles before we read the final
+    // position and sync `idx`/dots to wherever the visitor landed.
+    sticky.addEventListener('scroll', () => {
+      clearTimeout(scrollDebounce);
+      scrollDebounce = setTimeout(() => {
+        idx = Math.round(sticky.scrollLeft / sticky.clientWidth);
+        setActiveDot(idx);
+      }, 100);
+    }, { passive: true, signal });
+
+    dotEls.forEach((dot, i) => {
+      dot.addEventListener('click', () => { onUserInteract(); goTo(i); }, { signal });
+    });
+
+    setActiveDot(0);
+    startAuto();
+
+    return () => {
+      stopAuto();
+      clearTimeout(resumeTimer);
+      clearTimeout(scrollDebounce);
+      controller.abort();
+      story.classList.remove('story--carousel');
+      sticky.scrollLeft = 0;
+      setActiveDot(-1);
+    };
+  });
+
   // Recompute pin distances once fonts/images have actually laid out —
   // Fraunces/Albert Sans swapping in, and the stage background photos
   // loading, both change section heights.
