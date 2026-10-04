@@ -11,14 +11,14 @@ export const EVENTS = [
     displayDate: 'Saturday, 12 July 2026',
     location: 'Brewmigos — location TBD (will be shared on Instagram @brewmigos4u)',
     deadline: '2026-07-10',   // last date to place an order
-    status: 'open',           // 'open' | 'closed'
+    status: 'closed',         // 'open' | 'closed'
     products: [
-      { id: 'triple-choc',    name: 'Triple Chocolate',     desc: 'Dark, milk & white chips in every bite',              price: 120, photo: 'assets/PHOTO-2026-06-29-11-44-33.jpg' },
-      { id: 'biscoff',        name: 'Biscoff Butter',       desc: 'Caramel cookie crust, drizzled on top',               price: 130, photo: 'assets/PHOTO-2026-06-29-11-44-35%202.jpg' },
-      { id: 'nyc-choc-chip',  name: 'NYC Choc-Chip',        desc: 'Crispy edges, gooey centre, bags of chips',           price: 110, photo: 'assets/PHOTO-2026-06-29-11-44-35%2020.jpg' },
+      { id: 'triple-choc',    name: 'Triple Chocolate',     desc: 'Dark, milk & white chips in every bite',              price: 120, photo: 'assets/PHOTO-2026-06-29-11-44-35%202.jpg' },
+      { id: 'biscoff',        name: 'Biscoff Butter',       desc: 'Caramel cookie crust, drizzled on top',               price: 130, photo: 'assets/PHOTO-2026-06-29-11-44-35%2011.jpg' },
+      { id: 'nyc-choc-chip',  name: 'NYC Choc-Chip',        desc: 'Crispy edges, gooey centre, bags of chips',           price: 110, photo: 'assets/PHOTO-2026-06-29-11-44-35%2015.jpg' },
       { id: 'loaded',         name: 'Loaded Monster',       desc: 'KitKat, M&Ms, white chips — the works',              price: 150, photo: 'assets/PHOTO-2026-06-29-11-44-33.jpg' },
-      { id: 'white-mac',      name: 'White Choc Macadamia', desc: 'Buttery dough, creamy white chips, crunchy macadamia', price: 140, photo: 'assets/PHOTO-2026-06-29-11-44-35%2010.jpg' },
-      { id: 'double-biscoff', name: 'Double Biscoff',       desc: 'Biscoff dough + Biscoff spread centre',              price: 140, photo: 'assets/PHOTO-2026-06-29-11-44-35%2015.jpg' },
+      { id: 'white-mac',      name: 'White Choc Macadamia', desc: 'Buttery dough, creamy white chips, crunchy macadamia', price: 140, photo: 'assets/PHOTO-2026-06-29-11-44-33%202.jpg' },
+      { id: 'double-biscoff', name: 'Double Biscoff',       desc: 'Biscoff dough + Biscoff spread centre',              price: 140, photo: 'assets/PHOTO-2026-06-29-11-44-35%209.jpg' },
     ],
     minOrderQty: 6,   // minimum cookies per order
   },

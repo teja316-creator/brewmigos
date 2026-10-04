@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2A1410" />
+  <meta name="description" content="Brewmigos menu — loaded cookies and freshly brewed coffee. Triple Chocolate, Biscoff Butter, Loaded Monster, cold brew, oat latte and more." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <title>Menu — Brewmigos</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="announce" data-preorder-closed>Pre-orders are closed for now · The next drop goes up on <a href="https://www.instagram.com/brewmigos4u" target="_blank" rel="noopener noreferrer">Instagram</a> first</div>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="15" fill="#C98A3C" stroke="#2A1410" stroke-width="2.5"/><circle cx="11" cy="13" r="2.6" fill="#2A1410"/><circle cx="21" cy="11" r="2.2" fill="#2A1410"/><circle cx="22" cy="21" r="2.8" fill="#2A1410"/><circle cx="13" cy="23" r="2" fill="#2A1410"/></svg>
+        <span>Brewmigos</span>
+      </a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+      <nav class="nav__links" id="nav-links" aria-label="Main">
+        <a href="index.html" class="nav__link">Story</a>
+        <a href="menu.html" class="nav__link" aria-current="page">Menu</a>
+        <a href="events.html" class="nav__link">Events</a>
+        <a href="gallery.html" class="nav__link">Gallery</a>
+        <a href="about.html" class="nav__link">About</a>
+        <a href="contact.html" class="nav__link">Contact</a>
+        <button class="btn btn--gold btn--sm" data-preorder-open hidden>Pre-order</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container split">
+        <div class="split__text">
+          <p class="eyebrow">The menu</p>
+          <h1 class="page-title">Loaded cookies. Freshly brewed coffee.</h1>
+          <p class="body">Six cookies baked the morning of every pop-up, and four drinks made at the stall while you wait. Prices are per piece.</p>
+          <p class="notice" data-preorder-closed>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#7A3F17" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="#7A3F17" stroke-width="2" stroke-linecap="round"/></svg>
+            Pre-orders are closed — find everything at our next pop-up.
+          </p>
+        </div>
+        <div class="split__art">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Top-down view of a loaded cookie next to a latte with a heart drawn in the foam">
+            <circle cx="292" cy="112" r="78" fill="#FFF6E4" stroke="#2A1410" stroke-width="4"/>
+            <rect x="350" y="98" width="40" height="20" rx="10" fill="#F3E3C3" stroke="#2A1410" stroke-width="4"/>
+            <circle cx="292" cy="112" r="54" fill="#F3E3C3" stroke="#2A1410" stroke-width="4"/>
+            <circle cx="292" cy="112" r="44" fill="#7A3F17"/>
+            <path d="M292 132 C268 116 272 92 286 96 C290 97 292 101 292 104 C292 101 294 97 298 96 C312 92 316 116 292 132 Z" fill="#F3E3C3"/>
+            <path d="M150 62 C206 58 250 98 252 160 C254 222 210 262 150 262 C88 262 46 220 48 160 C50 100 94 64 150 62 Z" fill="#C98A3C" stroke="#7A3F17" stroke-width="4"/>
+            <path d="M150 80 C196 78 232 110 234 160 C236 210 200 244 150 244" fill="none" stroke="#B5701F" stroke-width="3" opacity="0.6"/>
+            <g fill="#3B1F14"><rect x="104" y="110" width="16" height="12" rx="3" transform="rotate(-20 112 116)"/><rect x="160" y="96" width="14" height="11" rx="3" transform="rotate(15 167 101)"/><rect x="196" y="140" width="16" height="12" rx="3" transform="rotate(-10 204 146)"/><rect x="122" y="168" width="15" height="12" rx="3" transform="rotate(25 129 174)"/><rect x="170" y="196" width="16" height="12" rx="3"/><rect x="84" y="184" width="13" height="10" rx="3" transform="rotate(-30 90 189)"/><rect x="140" y="226" width="12" height="10" rx="3" transform="rotate(10 146 231)"/></g>
+            <g fill="#FFF6E4"><rect x="138" y="136" width="13" height="10" rx="3" transform="rotate(20 144 141)"/><rect x="200" y="186" width="12" height="10" rx="3" transform="rotate(-15 206 191)"/><rect x="94" y="146" width="12" height="9" rx="3"/></g>
+            <g fill="#B5701F"><circle cx="182" cy="122" r="6"/><circle cx="110" cy="214" r="5"/></g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--band" aria-labelledby="cookies-title">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="section__title" id="cookies-title">
+            <svg width="34" height="34" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="#C98A3C" stroke="#160C08" stroke-width="2"/><circle cx="9" cy="11" r="2" fill="#160C08"/><circle cx="17" cy="9" r="1.8" fill="#160C08"/><circle cx="18" cy="17" r="2.2" fill="#160C08"/><circle cx="11" cy="19" r="1.6" fill="#160C08"/></svg>
+            Cookies
+          </h2>
+          <span class="section__aside">Thick, loaded, pulled warm</span>
+        </div>
+        <div class="menu-grid">
+          <article class="menu-card reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-35%202.jpg" alt="Triple Chocolate cookies piled on a plate, studded with white and dark chips" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">Triple Chocolate</h3><span class="menu-card__price">&#8377;120</span></div>
+              <p class="menu-card__desc">Dark, milk &amp; white chips in every bite</p>
+            </div>
+          </article>
+          <article class="menu-card reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-35%2011.jpg" alt="Biscoff Butter cookie topped with a Biscoff biscuit and caramel drizzle" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">Biscoff Butter</h3><span class="menu-card__price">&#8377;130</span></div>
+              <p class="menu-card__desc">Caramel cookie crust, drizzled on top</p>
+            </div>
+          </article>
+          <article class="menu-card reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-35%2015.jpg" alt="NYC Choc-Chip cookie with crackled top and melting chocolate chips" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">NYC Choc-Chip</h3><span class="menu-card__price">&#8377;110</span></div>
+              <p class="menu-card__desc">Crispy edges, gooey centre, bags of chips</p>
+            </div>
+          </article>
+          <article class="menu-card reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-33%202.jpg" alt="White Choc Macadamia cookie with chunks of nuts on baking paper" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">White Choc Macadamia</h3><span class="menu-card__price">&#8377;140</span></div>
+              <p class="menu-card__desc">Buttery dough, white chips, crunchy macadamia</p>
+            </div>
+          </article>
+          <article class="menu-card reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-35%209.jpg" alt="Double Biscoff cookies, each topped with a Biscoff biscuit" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">Double Biscoff</h3><span class="menu-card__price">&#8377;140</span></div>
+              <p class="menu-card__desc">Biscoff dough with Biscoff spread centre</p>
+            </div>
+          </article>
+          <article class="menu-card reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-33.jpg" alt="Loaded Monster chocolate cookie with KitKat, white chips and candy" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">Loaded Monster</h3><span class="menu-card__price">&#8377;150</span></div>
+              <p class="menu-card__desc">KitKat, M&amp;Ms, white chips — the works</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" aria-labelledby="drinks-title">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="section__title" id="drinks-title">
+            <svg width="34" height="34" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 10h15v8a6 6 0 0 1-6 6h-3a6 6 0 0 1-6-6z" fill="#F3E3C3" stroke="#F3E3C3" stroke-width="2" stroke-linejoin="round"/><path d="M20 12h2a3 3 0 0 1 0 6h-2" fill="none" stroke="#F3E3C3" stroke-width="2"/><path d="M10 3c-1 2 1 3 0 5M15 3c-1 2 1 3 0 5" fill="none" stroke="#F3E3C3" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Drinks
+          </h2>
+          <span class="section__aside">Brewed at the stall, cup by cup</span>
+        </div>
+        <div class="menu-grid menu-grid--drinks">
+          <article class="menu-card menu-card--drink reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-35%2026.jpg" alt="Espresso" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">Espresso</h3><span class="menu-card__price">&#8377;80</span></div>
+              <p class="menu-card__desc">Single origin, bold &amp; rich</p>
+            </div>
+          </article>
+          <article class="menu-card menu-card--drink reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-35%2019.jpg" alt="Iced oat milk latte in a Brewmigos cup" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">Oat Milk Latte</h3><span class="menu-card__price">&#8377;130</span></div>
+              <p class="menu-card__desc">Creamy, smooth, plant-based</p>
+            </div>
+          </article>
+          <article class="menu-card menu-card--drink reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-35%2031.jpg" alt="Cold brew topped with cream in a takeaway cup" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">Cold Brew</h3><span class="menu-card__price">&#8377;120</span></div>
+              <p class="menu-card__desc">24-hr steep, bold &amp; refreshing</p>
+            </div>
+          </article>
+          <article class="menu-card menu-card--drink reveal">
+            <img src="assets/PHOTO-2026-06-29-11-44-35%2028.jpg" alt="Matcha latte in a glass" loading="lazy" />
+            <div class="menu-card__body">
+              <div class="menu-card__row"><h3 class="menu-card__name">Matcha Latte</h3><span class="menu-card__price">&#8377;140</span></div>
+              <p class="menu-card__desc">Ceremonial grade, earthy &amp; sweet</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="footer__name">Brewmigos</span>
+          <span class="footer__tag">Crafted with love</span>
+          <span class="footer__addr">Registered address: 403, Padmanabha Residency, Padmarao Nagar, Hyderabad 500025</span>
+        </div>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="index.html">Story</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="menu.html">Menu</a>
+          <a href="about.html">About</a>
+          <a href="events.html">Events</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Brewmigos. All rights reserved.</span>
+        <a href="https://www.instagram.com/brewmigos4u" target="_blank" rel="noopener noreferrer">Instagram @brewmigos4u</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="install-indicator" id="install-indicator" hidden>
+    <button class="install-indicator__btn" id="install-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Install the Brewmigos app
+    </button>
+    <button class="install-indicator__close" id="install-close" aria-label="Dismiss">
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="po-modal" id="preorder-modal" role="dialog" aria-modal="true" aria-label="Pre-order">
+    <div class="po-modal__inner">
+      <div class="po-modal__header">
+        <div>
+          <h2 class="po-modal__title">Pre-order for <span class="event-date"></span></h2>
+          <p class="po-modal__subtitle event-location"></p>
+        </div>
+        <button class="po-modal__close" id="preorder-modal-close" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="po-modal__body">
+        <div class="po-section">
+          <h3 class="po-section__title">Pick your cookies</h3>
+          <p class="po-section__hint">Minimum 6 cookies per order.</p>
+          <div class="po-products" id="preorder-products"></div>
+        </div>
+        <div class="po-section">
+          <h3 class="po-section__title">Your order</h3>
+          <div id="cart-items" class="cart-items"></div>
+          <div class="cart-total-row"><span>Total</span><strong id="cart-total">&#8377;0</strong></div>
+        </div>
+        <div class="po-section">
+          <h3 class="po-section__title">Your details</h3>
+          <form class="form" id="checkout-form" novalidate>
+            <div class="form__row">
+              <div class="form__group">
+                <label for="po-name" class="form__label">Name *</label>
+                <input type="text" id="po-name" name="name" class="form__input" autocomplete="name" required />
+              </div>
+              <div class="form__group">
+                <label for="po-phone" class="form__label">Phone *</label>
+                <input type="tel" id="po-phone" name="phone" class="form__input" autocomplete="tel" required />
+              </div>
+            </div>
+            <div class="form__group">
+              <label for="po-email" class="form__label">Email *</label>
+              <input type="email" id="po-email" name="email" class="form__input" autocomplete="email" required />
+            </div>
+            <div class="form__group">
+              <label for="pickup-info" class="form__label">Pickup</label>
+              <input type="text" class="form__input" id="pickup-info" readonly />
+            </div>
+            <div class="form__group">
+              <label for="po-notes" class="form__label">Notes / allergies</label>
+              <textarea id="po-notes" name="notes" class="form__input form__textarea form__textarea--sm"></textarea>
+            </div>
+            <button type="submit" class="btn btn--gold btn--full">Place Pre-order</button>
+            <div id="order-status" class="order-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="ui.js"></script>
+  <script type="module" src="preorder.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

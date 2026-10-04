@@ -19,26 +19,22 @@ Fully static PWA — no framework, no bundler, no dependencies to install.
 
 | File | Role |
 |------|------|
-| `index.html` | Single page. All sections (story hero, menu, events, gallery, contact, pre-order modal, lightbox) live here. |
-| `style.css` | All styles. CSS custom properties at `:root` define the palette and type stack. |
-| `ui.js` | Module. Nav scroll, scroll-reveal (`IntersectionObserver`), card tilt, gallery toggle, lightbox, active-nav tracking, contact form, JS-driven smooth anchor-scroll. Calls `window.lucide.createIcons()` on load. |
-| `story.js` | Module. GSAP ScrollTrigger scroll-pinned narrative hero (`.story` section, `#hero`) — 4 stages crossfade as the user scrolls, ending on a pre-order CTA. Only pins at `>=700px` + no reduced-motion (`gsap.matchMedia`); otherwise `.story` ships as a plain stacked-and-visible flow by default (progressive enhancement, mirrors `gallery-3d.js`'s isolation pattern). |
-| `preorder.js` | Module. Reads `config.js` to find the active event, renders product cards with qty steppers, manages a `localStorage` cart, submits to Google Form via hidden iframe. |
+| `index.html` | Story page: a 2D illustrated story that alternates between a cookie being made (dough → bake → cool & box) and a coffee being brewed (grind → bloom & pour → into the cup), ending at the pop-up stall. Section backgrounds (`.band--1`…`.band--6`) darken from cream to espresso as the story goes on. All illustrations are inline SVG. |
+| `menu.html` `events.html` `gallery.html` `about.html` `contact.html` | One page per nav tab. Every page repeats the same announcement bar, nav, footer, install indicator and pre-order modal markup (no templating — static files), so edit shared chrome in all six pages. The active nav link is marked per page with `aria-current="page"`. `about.html` holds the partner names/phones and the registered address (also in the footer and `contact.html`). Only `gallery.html` has the `#lightbox` markup. |
+| `style.css` | All styles. CSS custom properties at `:root` define the palette, story band colours and type stack. Sections set `--eyebrow` / `--muted` so text tones follow the background. `.reveal` elements fade up on scroll only when `<html class="js">` is set (inline script in each `<head>`); the top section of each page is deliberately not `.reveal` so it paints immediately. |
+| `ui.js` | Module, loaded on every page. Nav scroll shadow + mobile hamburger, scroll-reveal (`IntersectionObserver`), contact form, gallery lightbox, install indicator. Every feature no-ops when its elements are absent from the current page. |
+| `preorder.js` | Module. Reads `config.js` to find the active event, renders product cards with qty steppers, manages a `localStorage` cart, submits to Google Form via hidden iframe. Pages ship in the closed state (`[data-preorder-closed]` visible, `[data-preorder-open]` hidden); an open event flips both. |
 | `config.js` | **Owner-editable.** Defines `EVENTS` array and `GOOGLE_FORM` credentials. This is the only file that needs editing to launch a new event or wire up Google Form. |
-| `gallery-3d.js` | Module. Three.js cylindrical photo carousel on `#gallery-canvas` — drag to spin, click a photo to open the lightbox. Skips init under `prefers-reduced-motion`; static `#gallery-fallback` grid shown until it succeeds. |
-| `sw.js` | Service worker. Cache key is `brewmigos-v4` — bump the version string when assets change to force cache invalidation. |
+| `sw.js` | Service worker. Cache key is `brewmigos-v7`; `PRECACHE` lists every page, so add new pages there — bump the version string when assets change to force cache invalidation. |
 
-GSAP core + ScrollTrigger plugin load from jsdelivr CDN via `<script>` tags in `index.html`, before the ES modules — same version (`3.12.5`) pinned for both to avoid skew.
-
-## Icons
-
-Lucide is loaded from CDN (`unpkg.com/lucide`) as a UMD script **before** the ES modules. Usage in HTML: `<i data-lucide="icon-name" class="icon"></i>`. The `createIcons()` call in `ui.js` hydrates them all at once. Icon sizing is controlled by `.icon`, `.icon--sm`, `.icon--lg` classes in `style.css`.
+No third-party JS: icons are inline SVG, fonts come from Google Fonts. The cookie cursor is `icons/cursor-cookie.svg`, set on `body` in `style.css`.
 
 ## Pre-order system
 
 Driven entirely by `config.js`:
 
-- **Active event** = first entry in `EVENTS` with `status: 'open'`
+- **Active event** = first entry in `EVENTS` with `status: 'open'`; with none open, every page shows "pre-orders are closed"
+- **Reopening** = set the event's `status: 'open'` (and update its dates) — the Pre-order button appears in the nav and the closed notices hide
 - **Adding a new event** = append to `EVENTS`, set old one to `status: 'closed'`
 - **Google Form** = paste `formId` and `entry.XXXXXXX` field IDs into `GOOGLE_FORM` — see `PREORDER-SETUP.md` for full walkthrough
 - **Fallback** = if `formId` is empty, submit shows a copyable order summary instead of posting to Google
@@ -55,6 +51,7 @@ All in `:root` of `style.css`:
 --c-gold      #C98A3C   golden crust accent
 --c-caramel   #B5701F   Biscoff caramel
 --c-cream     #F3E3C3   baked dough cream
+--band-1…6    #EFDDB7 → #3A1B0F   story backgrounds, light to dark
 --font-display Fraunces (Google Fonts)
 --font-body    Albert Sans (Google Fonts)
 ```

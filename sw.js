@@ -1,16 +1,20 @@
-const CACHE = 'brewmigos-v5';
+const CACHE = 'brewmigos-v7';
 const PRECACHE = [
   '/',
   '/index.html',
+  '/menu.html',
+  '/events.html',
+  '/gallery.html',
+  '/about.html',
+  '/contact.html',
   '/style.css',
   '/ui.js',
   '/preorder.js',
   '/config.js',
-  '/gallery-3d.js',
   '/manifest.json',
   '/icons/icon.svg',
-  '/assets/hero-poster.jpg',
-  'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Albert+Sans:wght@300;400;500;600&display=swap',
+  '/icons/cursor-cookie.svg',
+  'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Albert+Sans:wght@400;500;600;700&display=swap',
 ];
 
 self.addEventListener('install', e => {
@@ -31,7 +35,7 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
 
-  // Cache-first for CDN assets (fonts, lucide)
+  // Cache-first for CDN assets (fonts)
   if (url.origin === 'https://unpkg.com' || url.origin === 'https://fonts.gstatic.com' || url.origin === 'https://fonts.googleapis.com') {
     e.respondWith(
       caches.open(CACHE).then(async cache => {

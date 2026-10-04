@@ -24,11 +24,11 @@ let cart = loadCart();
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 function init() {
-  if (!event) {
-    // No open event — hide pre-order CTAs
-    document.querySelectorAll('[data-preorder-open], #preorder-section').forEach(el => el.setAttribute('hidden', ''));
-    return;
-  }
+  // Pages ship in the closed state; only an open event swaps the
+  // "pre-orders closed" messaging for the Pre-order buttons.
+  if (!event) return;
+  document.querySelectorAll('[data-preorder-closed]').forEach(el => el.setAttribute('hidden', ''));
+  document.querySelectorAll('[data-preorder-open]').forEach(el => el.removeAttribute('hidden'));
 
   // Render event info
   document.querySelectorAll('.event-name').forEach(el => el.textContent = event.name);
