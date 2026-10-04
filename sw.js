@@ -1,4 +1,4 @@
-const CACHE = 'brewmigos-v7';
+const CACHE = 'brewmigos-v8';
 const PRECACHE = [
   '/',
   '/index.html',
@@ -13,6 +13,7 @@ const PRECACHE = [
   '/config.js',
   '/manifest.json',
   '/icons/icon.svg',
+  '/icons/favicon.svg',
   '/icons/cursor-cookie.svg',
   'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Albert+Sans:wght@400;500;600;700&display=swap',
 ];

@@ -472,23 +472,68 @@ button { font: inherit; cursor: pointer; }
 }
 .footer__bottom a { color: var(--c-cream); }
 
-/* ── Install indicator (Android phones) ───────────────────────────────────── */
+/* ── Install the app (Android) ────────────────────────────────────────────── */
 .install-indicator {
-  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 60;
+  position: fixed; left: 16px; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); z-index: 60;
+  max-width: 480px; margin: 0 auto;
   display: flex; align-items: center; gap: 8px;
   background: var(--c-ink); color: var(--c-cream);
-  border-radius: 999px; padding: 6px 6px 6px 8px;
+  border-radius: 999px; padding: 6px 6px 6px 6px;
   box-shadow: 0 12px 32px rgba(0,0,0,.35);
+  animation: bm-pop-in .5s var(--ease-out);
 }
 .install-indicator__btn {
-  flex: 1; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 8px;
-  border: none; background: none; color: inherit; font-weight: 600; text-align: left;
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 6px;
+  border: none; background: none; color: inherit; text-align: left;
 }
+.install-indicator__icon {
+  width: 40px; height: 40px; flex: none; border-radius: 50%;
+  background: var(--c-surface); display: flex; align-items: center; justify-content: center;
+}
+.install-indicator__text { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.install-indicator__text strong { font-weight: 700; font-size: 16px; }
+.install-indicator__text span { font-size: 13px; color: var(--c-cream-muted); }
 .install-indicator__close {
   width: 44px; height: 44px; border-radius: 50%; flex: none;
   border: none; background: rgba(243,227,195,.12); color: inherit;
   display: flex; align-items: center; justify-content: center;
 }
+@keyframes bm-pop-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .install-indicator { animation: none; } }
+
+.nav__install {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 40px; padding: 8px 16px; border-radius: 999px;
+  border: 2px solid var(--c-ink); background: none; color: var(--c-ink);
+  font-weight: 600; font-size: 15px;
+}
+@media (max-width: 820px) {
+  .nav__install { justify-content: center; margin-top: 14px; min-height: 48px; font-size: 16px; }
+}
+
+.install-help {
+  position: fixed; inset: 0; z-index: 95;
+  background: rgba(22,12,8,.7);
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 16px;
+}
+.install-help__card {
+  width: 100%; max-width: 440px;
+  background: var(--c-cream); color: var(--c-ink);
+  border-radius: 28px; padding: 28px 24px 24px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.install-help__title { font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 1.15; }
+.install-help__steps { counter-reset: step; display: flex; flex-direction: column; gap: 14px; }
+.install-help__steps li { counter-increment: step; display: flex; gap: 14px; align-items: baseline; }
+.install-help__steps li::before {
+  content: counter(step); flex: none;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--c-gold); color: var(--c-ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px;
+}
+.install-help__steps strong { font-weight: 700; }
 
 /* ── Pre-order modal (dormant while no event is open in config.js) ────────── */
 .po-modal {

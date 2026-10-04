@@ -16,7 +16,7 @@ function setMenu(open) {
 hamburger?.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
 
 navLinks?.addEventListener('click', e => {
-  if (e.target.closest('.nav__link, [data-preorder-open]')) setMenu(false);
+  if (e.target.closest('.nav__link, [data-preorder-open], [data-install-open]')) setMenu(false);
 });
 
 document.addEventListener('keydown', e => {
@@ -100,39 +100,77 @@ document.addEventListener('click', e => {
   openLightbox(all.map(i => i.src), all.indexOf(img));
 });
 
-// ── Install indicator (Android phones only) ────────
-// `beforeinstallprompt` also fires on desktop Chrome/Edge — the UA
-// check below narrows this specifically to Android phone form factor
-// (Android tablets typically omit "Mobile" from their UA string).
-const isAndroidPhone = /Android/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent);
+// ── Install the app (Android only) ─────────
+// `beforeinstallprompt` only fires in Chromium browsers, and not on every
+// visit, so the pill doesn't wait for it: on Android it always shows, uses
+// the native prompt when one has been captured, and otherwise falls back
+// to manual "browser menu → Install app" steps.
+const isAndroid    = /Android/i.test(navigator.userAgent);
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-const DISMISS_KEY = 'brewmigos-install-dismissed';
+const canOfferInstall = isAndroid && !isStandalone;
+const DISMISS_KEY  = 'brewmigos-install-dismissed';
+const PILL_DELAY_MS = 2500;
 
 const installIndicator = document.getElementById('install-indicator');
 const installBtn       = document.getElementById('install-btn');
 const installClose     = document.getElementById('install-close');
+const installHelp      = document.getElementById('install-help');
+const installHelpClose = document.getElementById('install-help-close');
+const installOpeners   = document.querySelectorAll('[data-install-open]');
 let deferredInstallPrompt = null;
+let helpReturnFocus = null;
+
+function wasDismissed() {
+  try { return localStorage.getItem(DISMISS_KEY) === '1'; } catch { return false; }
+}
+function rememberDismissed() {
+  try { localStorage.setItem(DISMISS_KEY, '1'); } catch {}
+}
+function hideInstallUI() {
+  installIndicator?.setAttribute('hidden', '');
+  installOpeners.forEach(el => el.setAttribute('hidden', ''));
+}
+
+function openInstallHelp() {
+  helpReturnFocus = document.activeElement;
+  installHelp?.removeAttribute('hidden');
+  installHelpClose?.focus();
+}
+function closeInstallHelp() {
+  installHelp?.setAttribute('hidden', '');
+  helpReturnFocus?.focus?.();
+}
+
+async function startInstall() {
+  if (!deferredInstallPrompt) { openInstallHelp(); return; }
+  deferredInstallPrompt.prompt();
+  const { outcome } = await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  if (outcome === 'accepted') hideInstallUI();
+}
+
+if (canOfferInstall) {
+  installOpeners.forEach(el => el.removeAttribute('hidden'));
+  if (!wasDismissed()) setTimeout(() => installIndicator?.removeAttribute('hidden'), PILL_DELAY_MS);
+}
 
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredInstallPrompt = e;
-  if (!isAndroidPhone || isStandalone || localStorage.getItem(DISMISS_KEY)) return;
-  installIndicator?.removeAttribute('hidden');
 });
 
-installBtn?.addEventListener('click', async () => {
-  if (!deferredInstallPrompt) return;
-  deferredInstallPrompt.prompt();
-  await deferredInstallPrompt.userChoice;
-  deferredInstallPrompt = null;
-  installIndicator?.setAttribute('hidden', '');
-});
+installBtn?.addEventListener('click', startInstall);
+installOpeners.forEach(el => el.addEventListener('click', startInstall));
 
 installClose?.addEventListener('click', () => {
-  localStorage.setItem(DISMISS_KEY, '1');
+  rememberDismissed();
   installIndicator?.setAttribute('hidden', '');
 });
 
-window.addEventListener('appinstalled', () => {
-  installIndicator?.setAttribute('hidden', '');
+installHelpClose?.addEventListener('click', closeInstallHelp);
+installHelp?.addEventListener('click', e => { if (e.target === installHelp) closeInstallHelp(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && installHelp && !installHelp.hasAttribute('hidden')) closeInstallHelp();
 });
+
+window.addEventListener('appinstalled', hideInstallUI);
